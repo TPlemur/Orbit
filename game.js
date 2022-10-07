@@ -36,6 +36,14 @@ llll
 llll
  cccc 
 cccccc
+`,
+`
+ bbbb 
+bgggbb
+bbggbb
+bggbbb
+bbbbgg
+ bbbb 
 `
 ];
 
@@ -46,7 +54,7 @@ const G ={
    GRAV: 1000,
    BLEED: 0.999,
    ACCEL: 1.002,
-   PLANRAD: 3,
+   PLANRAD: 5,
    OUTOFBOUNDS: 106 //circle through corner
 };
 
@@ -125,8 +133,9 @@ function update() {
     }
 
     //render planet
-    color("blue")
-    box(G.WIDTH/2,G.HEIGHT/2, 6)
+    //color("blue")
+    //box(G.WIDTH/2,G.HEIGHT/2, 6)
+    char("e",vec(G.WIDTH/2,G.HEIGHT/2))
 
 }
 
