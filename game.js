@@ -102,9 +102,27 @@ function update() {
     }
 
 
-    //render player
-    color("black")
-    char("a",player.pos);
+    //render player facing direction of greatest velocity
+    if(abs(player.vel.y)>abs(player.vel.x)){
+        if(player.vel.y>0){
+            color("black")
+            char("c",player.pos);
+        }
+        else{
+            color("black")
+            char("a",player.pos);
+        }
+    }
+    else{
+        if(player.vel.x>0){
+            color("black")
+            char("b",player.pos);
+        }
+        else{
+            color("black")
+            char("d",player.pos);
+        }
+    }
 
     //render planet
     color("blue")
