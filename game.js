@@ -47,17 +47,19 @@ bbbbgg
 `
 ];
 
+//game parameters
 const G ={
-   WIDTH: 150,
-   HEIGHT: 150, 
-   STARTVEL: 60 ,
-   GRAV: 1000,
-   BLEED: 0.999,
-   ACCEL: 1.002,
-   PLANRAD: 5,
-   OUTOFBOUNDS: 106 //circle through corner
+   WIDTH: 150,       //width of window
+   HEIGHT: 150,      //height of window
+   STARTVEL: 60 ,    //player's initial velocity
+   GRAV: 1000,       //strength of gravitational forces
+   BLEED: 0.999,     //rate at which speed is lost per tick
+   ACCEL: 1.002,     //rate at which speed is gained per tick
+   PLANRAD: 5,       //the kill radius of the planet
+   OUTOFBOUNDS: 106  //out of bound lost in space (circle through corner of window)
 };
 
+//the player's ship
 player = {
     pos: vec(G.WIDTH/2,G.HEIGHT/3), //start position
     vel: vec(G.STARTVEL,0),         //start velocity
@@ -65,10 +67,12 @@ player = {
     distToPlan: 1                   //used for calculations
 }
 
+//the target coordinates
 target = {
     pos: vec(0,0)
 }
 
+//return a vector within a doughnut shape around the planet
 function randPoint(){
     point = vec(0,0)
     theta = Math.random()*2*PI 
@@ -90,6 +94,7 @@ function update() {
         player.pos.y = G.HEIGHT/3
         player.vel.x = G.STARTVEL
         player.vel.y = 0
+        //randomize target location
         target.pos = randPoint()
     }
 
@@ -120,16 +125,15 @@ function update() {
     player.vel.x = (G.GRAV/ (player.distToPlan ** 2)) * player.toPlan.x + player.vel.x
     player.vel.y = (G.GRAV/ (player.distToPlan ** 2)) * player.toPlan.y + player.vel.y
 
+    //end game if player strays out of bounds
     if(player.distToPlan < G.PLANRAD || player.distToPlan > G.OUTOFBOUNDS){
         end()
     }
-
 
     //render target
     color("yellow")
     box(target.pos, 3)
     color("black")
-
 
     //render player facing direction of greatest velocity
     if(abs(player.vel.y)>abs(player.vel.x)){
@@ -151,7 +155,7 @@ function update() {
     //render planet
     char("e",vec(G.WIDTH/2,G.HEIGHT/2));
 
-
+    //check if target is hit, and reset if necessasary
     if(isCol.yellow){
        score+=1
        target.pos = randPoint() 
