@@ -67,6 +67,7 @@ player = {
 
 options = {
     viewSize: {x: G.WIDTH, y:G.HEIGHT},
+    theme: "dark"
 };
 
 function update() {
