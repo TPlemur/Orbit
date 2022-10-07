@@ -78,7 +78,8 @@ function update() {
         player.vel.y = 0
 
     }
-    //on press
+
+    //accelerate or decelerate as necessasary
     if(input.isPressed){
         //raise velocity
         player.vel.x = player.vel.x * G.ACCEL
@@ -133,8 +134,6 @@ function update() {
     }
 
     //render planet
-    //color("blue")
-    //box(G.WIDTH/2,G.HEIGHT/2, 6)
     char("e",vec(G.WIDTH/2,G.HEIGHT/2))
 
 }
