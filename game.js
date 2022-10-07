@@ -65,6 +65,19 @@ player = {
     distToPlan: 1                   //used for calculations
 }
 
+target = {
+    pos: vec(0,0)
+}
+
+function randPoint(){
+    point = vec(0,0)
+    theta = Math.random()*2*PI 
+    L = Math.random() * 60 + G.PLANRAD + 3
+    point.x = Math.cos(theta) * L + G.WIDTH/2
+    point.y = Math.sin(theta) * L + G.HEIGHT/2
+    return point;
+}
+
 options = {
     viewSize: {x: G.WIDTH, y:G.HEIGHT},
     theme: "dark"
@@ -77,7 +90,7 @@ function update() {
         player.pos.y = G.HEIGHT/3
         player.vel.x = G.STARTVEL
         player.vel.y = 0
-
+        target.pos = randPoint()
     }
 
     //accelerate or decelerate as necessasary
@@ -112,25 +125,37 @@ function update() {
     }
 
 
+    //render target
+    color("yellow")
+    box(target.pos, 3)
+    color("black")
+
+
     //render player facing direction of greatest velocity
     if(abs(player.vel.y)>abs(player.vel.x)){
         if(player.vel.y>0){
-            char("c",player.pos);
+            isCol = char("c",player.pos).isColliding.rect;
         }
         else{
-            char("a",player.pos);
+            isCol = char("a",player.pos).isColliding.rect;
         }
     }
     else{
         if(player.vel.x>0){
-            char("b",player.pos);
+            isCol = char("b",player.pos).isColliding.rect;
         }
         else{
-            char("d",player.pos);
+            isCol = char("d",player.pos).isColliding.rect;
         }
     }
     //render planet
-    char("e",vec(G.WIDTH/2,G.HEIGHT/2))
+    char("e",vec(G.WIDTH/2,G.HEIGHT/2));
+
+
+    if(isCol.yellow){
+       score+=1
+       target.pos = randPoint() 
+    }
 
 }
 
