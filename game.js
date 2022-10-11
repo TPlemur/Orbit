@@ -85,8 +85,8 @@ function randPoint(){
 options = {
     viewSize: {x: G.WIDTH, y:G.HEIGHT},
     theme: "dark",
-    seed: 7,
-    isPlayingBgm: true
+    //seed: 7,
+    //isPlayingBgm: true
 };
 
 function update() {
